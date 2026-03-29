@@ -1,5 +1,7 @@
 
+## 6.1
 import java.util.Scanner;
+ 
 
 public class Calculate {
     public static void main(String[] args) {
