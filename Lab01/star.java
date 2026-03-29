@@ -1,3 +1,4 @@
+## 6.3
 import java.util.Scanner;
 
 public class star {
