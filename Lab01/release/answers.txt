@@ -1,0 +1,29 @@
+
+
+1. Phân tích hành vi khi người dùng chọn "Cancel"
+Trong Java Swing, khi sử dụng hàm showConfirmDialog, kết quả trả về là một số nguyên (int) đại diện cho lựa chọn của người dùng.
+
+Cơ chế trả về: Nếu người dùng nhấn nút Cancel, hàm sẽ trả về hằng số JOptionPane.CANCEL_OPTION. Nếu người dùng không nhấn nút mà đóng cửa sổ bằng dấu "X", hàm trả về JOptionPane.CLOSED_OPTION.
+
+Lỗi logic thường gặp: Trong các bài tập cơ bản, nếu chúng ta chỉ sử dụng cấu trúc if (result == JOptionPane.YES_OPTION), thì tất cả các trường hợp còn lại (bao gồm cả "No", "Cancel", và "Đóng cửa sổ") đều rơi vào nhánh else.
+
+Hệ quả: Điều này khiến chương trình thực hiện hành động của nhánh "No" ngay cả khi người dùng muốn hủy bỏ hoàn toàn thao tác. Để chính xác, lập trình viên cần tách biệt ba nhánh xử lý: Đồng ý (Yes), Từ chối (No) và Thoát/Hủy (Cancel/Closed).
+
+2. Cách tùy chỉnh các tùy chọn (Options) cho người dùng
+Để thay đổi các nút bấm mặc định, chúng ta có hai cấp độ tùy chỉnh dựa trên Javadoc của lớp JOptionPane:
+
+A. Tùy chỉnh theo nhóm nút có sẵn (Predefined Options):
+Java cung cấp các bộ nút tiêu chuẩn thông qua các hằng số nguyên. Thay vì dùng mặc định (thường có 3 nút), ta có thể chỉ định tham số optionType:
+
+YES_NO_OPTION: Chỉ hiển thị hai lựa chọn "Yes" và "No".
+
+YES_NO_CANCEL_OPTION: Hiển thị đầy đủ ba lựa chọn.
+
+OK_CANCEL_OPTION: Thay thế "Yes/No" bằng "OK/Cancel".
+
+B. Tùy chỉnh nội dung nút theo ý muốn (Custom Options):
+Khi cần các nút có nhãn đặc biệt như "I do" và "I don't", ta không dùng showConfirmDialog mà chuyển sang dùng showOptionDialog. Đây là hàm linh hoạt nhất trong thư viện:
+
+Tham số mảng đối tượng: Bạn có thể truyền một mảng các chuỗi ký tự (String array) vào hàm. Mỗi phần tử trong mảng sẽ tương ứng với một nút bấm trên giao diện.
+
+Cơ chế xác định lựa chọn: Thay vì trả về các hằng số như YES_OPTION, hàm này sẽ trả về chỉ số (index) của phần tử trong mảng. Ví dụ: Nếu người dùng chọn nút đầu tiên ("I do"), hàm trả về 0; chọn nút thứ hai ("I don't"), hàm trả về 1.
