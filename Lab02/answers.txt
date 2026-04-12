@@ -1,0 +1,21 @@
+Trong bài 9, Eclipse được dùng để tự động tạo các phương thức truy cập (getter, setter) cho lớp DigitalVideoDisc. Cách làm này giúp việc đóng gói dữ liệu rõ ràng hơn. Tuy nhiên, theo yêu cầu thiết kế của hệ thống AIMS, thông tin của DVD sau khi khởi tạo không nên bị thay đổi trực tiếp. Vì vậy, trong thực tế chỉ cần getter để đọc dữ liệu, setter không thật sự cần thiết.
+
+Sang bài 10, lớp DigitalVideoDisc được bổ sung constructor overloading để hỗ trợ nhiều cách khởi tạo đối tượng: chỉ với title; với category, title, cost; hoặc đầy đủ các thuộc tính. Điều này cho thấy Java phân biệt constructor dựa trên signature, gồm số lượng tham số, kiểu dữ liệu và thứ tự tham số.
+
+Vì thế, Java không cho phép hai constructor chỉ khác tên biến nếu danh sách tham số giống nhau. Ví dụ, constructor theo title (String) và constructor theo category (String) đều chỉ nhận một String nên bị trùng signature và gây lỗi biên dịch. Overloading chỉ hợp lệ khi khác số lượng tham số, khác kiểu dữ liệu, hoặc khác thứ tự tham số.
+
+Question: Is Java a pass-by-value or pass-by-reference programming language?
+
+Java là ngôn ngữ pass-by-value trong mọi trường hợp. Khi truyền tham số vào phương thức, Java luôn truyền bản sao của giá trị.
+- Với kiểu dữ liệu nguyên thủy (int, float, boolean, ...), giá trị được sao chép trực tiếp.
+- Với đối tượng, giá trị được sao chép là reference (địa chỉ tham chiếu), không phải bản thân đối tượng.
+
+Do đó, ta có thể thay đổi trạng thái của đối tượng thông qua reference được truyền vào, nhưng không thể thay đổi reference gốc bên ngoài phương thức.
+
+Question:
+- After the call of swap(jungleDVD, cinderellaDVD), why do the titles of these two objects remain unchanged?
+- After the call of changeTitle(jungleDVD, cinderellaDVD.getTitle()), why is the title of jungleDVD changed?
+
+Giải thích:
+- swap(jungleDVD, cinderellaDVD): Hàm này chỉ hoán đổi hai bản sao reference bên trong phương thức. Hai biến gốc bên ngoài vẫn trỏ đến đối tượng cũ, nên title của hai đối tượng không đổi.
+- changeTitle(jungleDVD, cinderellaDVD.getTitle()): Hàm này thay đổi thuộc tính title trên chính đối tượng mà reference đang trỏ tới. Vì reference này vẫn trỏ đến đối tượng gốc, thay đổi sẽ được thấy bên ngoài phương thức.
