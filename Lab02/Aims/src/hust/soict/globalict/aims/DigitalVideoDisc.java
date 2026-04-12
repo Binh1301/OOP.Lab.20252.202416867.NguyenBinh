@@ -54,7 +54,7 @@ public class DigitalVideoDisc {
 	    this.title = title;
 	    this.category = category;
 	    this.director = director;
-	    this.length = length;
+	    this.lenghth = length;
 	    this.cost = cost;
 	}
 
