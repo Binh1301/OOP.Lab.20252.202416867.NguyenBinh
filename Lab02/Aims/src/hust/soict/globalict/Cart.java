@@ -17,6 +17,25 @@ public class Cart {
         System.out.println("The disc has been added");
     }
 
+    public void addDigitalVideoDisc(DigitalVideoDisc dvd1, DigitalVideoDisc dvd2) {
+        addDigitalVideoDisc(dvd1);
+        addDigitalVideoDisc(dvd2);
+    }
+
+    public void addDigitalVideoDisc(DigitalVideoDisc... dvdList) {
+        if (dvdList == null) {
+            System.out.println("The disc list is null");
+            return;
+        }
+        for (DigitalVideoDisc dvd : dvdList) {
+            if (dvd == null) {
+                System.out.println("Skipped null disc");
+                continue;
+            }
+            addDigitalVideoDisc(dvd);
+        }
+    }
+
     public void removeDigitalVideoDisc(DigitalVideoDisc disc) {
         int index = -1;
         for (int i = 0; i < qtyOrdered; i++) {
