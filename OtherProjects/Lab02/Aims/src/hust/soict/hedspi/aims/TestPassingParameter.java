@@ -1,4 +1,4 @@
-package hust.soict.globalict.aims;
+package hust.soict.hedspi.aims;
 
 public class TestPassingParameter {
 

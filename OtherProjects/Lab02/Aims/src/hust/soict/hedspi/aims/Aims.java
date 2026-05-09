@@ -1,6 +1,4 @@
-package hust.soict.globalict.aims;
-
-import hust.soict.globalict.Cart;
+package hust.soict.hedspi.aims;
 
 public class Aims {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package hust.soict.globalict.aims;
+package hust.soict.hedspi.aims;
 
 public class DigitalVideoDisc {
 	private static int nbDigitalVideoDiscs = 0;
@@ -76,8 +76,5 @@ public class DigitalVideoDisc {
 	    this.lenghth = length;
 	    this.cost = cost;
 	}
-
-
-
 
 }
