@@ -30,9 +30,10 @@ public class Track implements Playable {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof Track other)) {
+        if (!(obj instanceof Track)) {
             return false;
         }
+        Track other = (Track) obj;
         return length == other.length && Objects.equals(title, other.title);
     }
 

@@ -1,7 +1,7 @@
 package hust.soict.hedspi.test.cart;
 
 import hust.soict.hedspi.aims.Cart;
-import hust.soict.hedspi.aims.DigitalVideoDisc;
+import hust.soict.hedspi.aims.media.DigitalVideoDisc;
 
 public class CartTest {
     public static void main(String[] args) {
