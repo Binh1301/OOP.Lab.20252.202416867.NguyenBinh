@@ -1,42 +1,47 @@
 package hust.soict.hedspi.aims.store;
 
-import hust.soict.hedspi.aims.DigitalVideoDisc;
+import java.util.ArrayList;
+import hust.soict.hedspi.aims.media.DigitalVideoDisc;
+import hust.soict.hedspi.aims.media.Media;
 
 public class Store {
     public static final int MAX_ITEMS_IN_STORE = 100;
-    private final DigitalVideoDisc[] itemsInStore = new DigitalVideoDisc[MAX_ITEMS_IN_STORE];
+    private final ArrayList<Media> itemsInStore = new ArrayList<>();
 
-    public void addDVD(DigitalVideoDisc dvd) {
-        if (dvd == null) {
-            System.out.println("Cannot add null DVD");
+    public void addMedia(Media media) {
+        if (media == null) {
+            System.out.println("Cannot add null media");
             return;
         }
-
-        for (int i = 0; i < itemsInStore.length; i++) {
-            if (itemsInStore[i] == null) {
-                itemsInStore[i] = dvd;
-                System.out.println("The DVD has been added to the store");
-                return;
-            }
+        if (itemsInStore.size() >= MAX_ITEMS_IN_STORE) {
+            System.out.println("The store is full");
+            return;
         }
+        itemsInStore.add(media);
+        System.out.println("The media has been added to the store");
+    }
 
-        System.out.println("The store is full");
+    public void removeMedia(Media media) {
+        if (media == null) {
+            System.out.println("Cannot remove null media");
+            return;
+        }
+        if (itemsInStore.remove(media)) {
+            System.out.println("The media has been removed from the store");
+            return;
+        }
+        System.out.println("The media was not found in the store");
+    }
+
+    public ArrayList<Media> getItemsInStore() {
+        return itemsInStore;
+    }
+
+    public void addDVD(DigitalVideoDisc dvd) {
+        addMedia(dvd);
     }
 
     public void removeDVD(DigitalVideoDisc dvd) {
-        if (dvd == null) {
-            System.out.println("Cannot remove null DVD");
-            return;
-        }
-
-        for (int i = 0; i < itemsInStore.length; i++) {
-            if (itemsInStore[i] == dvd) {
-                itemsInStore[i] = null;
-                System.out.println("The DVD has been removed from the store");
-                return;
-            }
-        }
-
-        System.out.println("The DVD was not found in the store");
+        removeMedia(dvd);
     }
 }
