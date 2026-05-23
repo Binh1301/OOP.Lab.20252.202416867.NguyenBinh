@@ -53,7 +53,8 @@ public class MediaStore extends JPanel {
 
     private void showPlayDialog() {
         StringBuilder message = new StringBuilder("Playing: " + media.getTitle());
-        if (media instanceof Disc disc) {
+        if (media instanceof Disc) {
+            Disc disc = (Disc) media;
             message.append("\nLength: ").append(disc.getLength());
         }
 
