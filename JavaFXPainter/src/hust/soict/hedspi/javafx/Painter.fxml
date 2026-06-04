@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="hust.soict.hedspi.javafx.PainterController">
+    <top>
+        <HBox spacing="8" padding="8">
+            <children>
+                <ColorPicker fx:id="colorPicker" value="#000000"/>
+                <Slider fx:id="lineWidthSlider" min="1" max="20" value="3"/>
+            </children>
+        </HBox>
+    </top>
+    <center>
+        <Canvas fx:id="canvas" width="800" height="500" onMouseDragged="#onMouseDragged"/>
+    </center>
+</BorderPane>
