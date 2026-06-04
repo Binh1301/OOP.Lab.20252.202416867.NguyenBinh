@@ -2,6 +2,9 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
@@ -11,6 +14,9 @@
             fx:controller="hust.soict.hedspi.javafx.PainterController"
             prefWidth="640" prefHeight="480"
             padding="8">
+    <fx:define>
+        <ToggleGroup fx:id="toolToggleGroup"/>
+    </fx:define>
     <left>
         <VBox spacing="8"
               prefWidth="USE_COMPUTED_SIZE" prefHeight="USE_COMPUTED_SIZE"
@@ -19,6 +25,16 @@
                 <Insets right="8"/>
             </BorderPane.margin>
             <children>
+                <TitledPane text="Tools" expanded="true">
+                    <content>
+                        <VBox spacing="6">
+                            <children>
+                                <RadioButton text="Pen" toggleGroup="$toolToggleGroup" selected="true"/>
+                                <RadioButton fx:id="eraserRadio" text="Eraser" toggleGroup="$toolToggleGroup"/>
+                            </children>
+                        </VBox>
+                    </content>
+                </TitledPane>
                 <Button text="Clear" maxWidth="Infinity" onAction="#clearButtonPressed"/>
             </children>
         </VBox>
@@ -26,6 +42,7 @@
     <center>
         <Pane fx:id="drawingAreaPane"
               style="-fx-background-color: white;"
-              onMouseDragged="#drawingAreaMouseDragged"/>
+              onMouseDragged="#drawingAreaMouseDragged"
+              onMousePressed="#drawingAreaMouseDragged"/>
     </center>
 </BorderPane>
