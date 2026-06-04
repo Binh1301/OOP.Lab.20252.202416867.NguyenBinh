@@ -1,31 +1,25 @@
 package hust.soict.hedspi.javafx;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 public class PainterController {
-    @FXML private Canvas canvas;
-    @FXML private ColorPicker colorPicker;
-    @FXML private Slider lineWidthSlider;
+    private static final double BRUSH_RADIUS = 4;
 
-    private GraphicsContext gc;
+    @FXML private Pane drawingAreaPane;
 
     @FXML
-    private void initialize() {
-        gc = canvas.getGraphicsContext2D();
-        gc.setStroke(colorPicker.getValue());
-        gc.setLineWidth(lineWidthSlider.getValue());
-
-        colorPicker.setOnAction(e -> gc.setStroke(colorPicker.getValue()));
-        lineWidthSlider.valueProperty().addListener((obs, o, n) -> gc.setLineWidth(n.doubleValue()));
+    private void drawingAreaMouseDragged(MouseEvent e) {
+        Circle dot = new Circle(e.getX(), e.getY(), BRUSH_RADIUS, Color.BLACK);
+        drawingAreaPane.getChildren().add(dot);
     }
 
     @FXML
-    private void onMouseDragged(MouseEvent e) {
-        gc.strokeLine(e.getX(), e.getY(), e.getX(), e.getY());
+    private void clearButtonPressed(ActionEvent e) {
+        drawingAreaPane.getChildren().clear();
     }
 }
