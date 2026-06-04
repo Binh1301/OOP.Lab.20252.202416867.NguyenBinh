@@ -1,7 +1,9 @@
 package hust.soict.hedspi.javafx;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -15,7 +17,8 @@ public class PainterController {
     @FXML
     private void drawingAreaMouseDragged(MouseEvent e) {
         Circle dot = new Circle(e.getX(), e.getY(), BRUSH_RADIUS, Color.BLACK);
-        drawingAreaPane.getChildren().add(dot);
+        ObservableList<Node> children = drawingAreaPane.getChildren();
+        children.add(dot);
     }
 
     @FXML

@@ -12,7 +12,9 @@
             prefWidth="640" prefHeight="480"
             padding="8">
     <left>
-        <VBox spacing="8" maxHeight="Infinity">
+        <VBox spacing="8"
+              prefWidth="USE_COMPUTED_SIZE" prefHeight="USE_COMPUTED_SIZE"
+              maxHeight="1.7976931348623157E308">
             <BorderPane.margin>
                 <Insets right="8"/>
             </BorderPane.margin>
