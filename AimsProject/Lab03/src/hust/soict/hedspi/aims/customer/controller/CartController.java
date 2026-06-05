@@ -1,12 +1,17 @@
 package hust.soict.hedspi.aims.customer.controller;
 
+import java.io.IOException;
+
 import hust.soict.hedspi.aims.Cart;
 import hust.soict.hedspi.aims.media.Media;
 import hust.soict.hedspi.aims.media.Playable;
+import hust.soict.hedspi.aims.store.Store;
 import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -15,8 +20,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 public class CartController {
+    private final Store store;
     private final Cart cart;
     private FilteredList<Media> filteredMedia;
 
@@ -28,12 +36,14 @@ public class CartController {
     @FXML private Label costLabel;
     @FXML private Button btnPlay;
     @FXML private Button btnRemove;
+    @FXML private Button btnPlaceOrder;
     @FXML private TextField tfFilter;
     @FXML private RadioButton radioBtnFilterId;
     @FXML private RadioButton radioBtnFilterTitle;
     @FXML private ToggleGroup filterCategory;
 
-    public CartController(Cart cart) {
+    public CartController(Store store, Cart cart) {
+        this.store = store;
         this.cart = cart;
     }
 
@@ -55,14 +65,14 @@ public class CartController {
         btnRemove.setVisible(false);
 
         tblMedia.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
-            if (newValue != null) {
-                updateButtonBar(newValue);
-            }
+            updateButtonBar(newValue);
         });
 
         tfFilter.textProperty().addListener((obs, oldValue, newValue) -> {
             showFilteredMedia();
         });
+        radioBtnFilterId.selectedProperty().addListener((obs, oldValue, newValue) -> showFilteredMedia());
+        radioBtnFilterTitle.selectedProperty().addListener((obs, oldValue, newValue) -> showFilteredMedia());
 
         cart.getItemsOrdered().addListener((ListChangeListener<Media>) change -> updateTotalCost());
         updateTotalCost();
@@ -107,6 +117,18 @@ public class CartController {
 
     @FXML
     private void btnViewStorePressed(ActionEvent e) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                    "/hust/soict/hedspi/aims/customer/view/Store.fxml"));
+            loader.setControllerFactory(param -> new ViewStoreController(store, cart));
+            Scene scene = new Scene(loader.load());
+
+            Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            throw new IllegalStateException("Cannot load Store.fxml", ex);
+        }
     }
 
     @FXML
@@ -123,5 +145,13 @@ public class CartController {
         if (selected != null) {
             cart.removeMedia(selected);
         }
+    }
+
+    @FXML
+    private void btnPlaceOrderPressed(ActionEvent e) {
+        cart.getItemsOrdered().clear();
+        tblMedia.getSelectionModel().clearSelection();
+        updateButtonBar(null);
+        updateTotalCost();
     }
 }

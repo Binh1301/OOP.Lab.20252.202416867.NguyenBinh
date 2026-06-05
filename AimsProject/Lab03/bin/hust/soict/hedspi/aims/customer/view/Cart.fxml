@@ -83,8 +83,9 @@
                         <Label fx:id="costLabel" text="0 $" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
                     </children>
                 </HBox>
-                <Button text="Place Order"
+                <Button fx:id="btnPlaceOrder" text="Place Order"
                         textFill="#ffffff"
+                        onAction="#btnPlaceOrderPressed"
                         style="-fx-font-size: 24; -fx-font-weight: bold; -fx-background-color: #004cff;"/>
             </children>
         </VBox>

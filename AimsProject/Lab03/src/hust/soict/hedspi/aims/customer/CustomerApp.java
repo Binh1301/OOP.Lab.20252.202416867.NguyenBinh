@@ -1,5 +1,11 @@
 package hust.soict.hedspi.aims.customer;
 
+import hust.soict.hedspi.aims.Cart;
+import hust.soict.hedspi.aims.customer.controller.ViewStoreController;
+import hust.soict.hedspi.aims.media.Book;
+import hust.soict.hedspi.aims.media.CompactDisc;
+import hust.soict.hedspi.aims.media.DigitalVideoDisc;
+import hust.soict.hedspi.aims.store.Store;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,7 +15,17 @@ import javafx.stage.Stage;
 public class CustomerApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(CustomerApp.class.getResource("view/CustomerHome.fxml"));
+        Store store = new Store();
+        Cart cart = new Cart();
+
+        store.addMedia(new Book("Clean Code", "Programming", 29.99f));
+        store.addMedia(new DigitalVideoDisc("Inception", "Sci-Fi", "Christopher Nolan", 148, 19.99f));
+        store.addMedia(new CompactDisc("The Fame", "Pop", "Lady Gaga", "Lady Gaga", 15.5f));
+
+        FXMLLoader loader = new FXMLLoader(CustomerApp.class.getResource("view/Store.fxml"));
+        loader.setControllerFactory(param -> new ViewStoreController(store, cart));
+        Parent root = loader.load();
+
         Scene scene = new Scene(root);
         stage.setTitle("AIMS Customer");
         stage.setScene(scene);
