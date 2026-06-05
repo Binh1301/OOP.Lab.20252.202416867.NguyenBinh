@@ -13,6 +13,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class CartController {
@@ -30,6 +31,7 @@ public class CartController {
     @FXML private TextField tfFilter;
     @FXML private RadioButton radioBtnFilterId;
     @FXML private RadioButton radioBtnFilterTitle;
+    @FXML private ToggleGroup filterCategory;
 
     public CartController(Cart cart) {
         this.cart = cart;
@@ -50,12 +52,12 @@ public class CartController {
         tblMedia.setItems(filteredMedia);
 
         btnPlay.setVisible(false);
-        btnPlay.setManaged(false);
         btnRemove.setVisible(false);
-        btnRemove.setManaged(false);
 
         tblMedia.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
-            updateButtonBar(newValue);
+            if (newValue != null) {
+                updateButtonBar(newValue);
+            }
         });
 
         tfFilter.textProperty().addListener((obs, oldValue, newValue) -> {
@@ -75,9 +77,7 @@ public class CartController {
         boolean playable = hasSelection && media instanceof Playable;
 
         btnRemove.setVisible(hasSelection);
-        btnRemove.setManaged(hasSelection);
         btnPlay.setVisible(playable);
-        btnPlay.setManaged(playable);
     }
 
     private void showFilteredMedia() {
