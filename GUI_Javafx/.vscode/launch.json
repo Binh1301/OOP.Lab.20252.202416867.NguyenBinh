@@ -1,0 +1,12 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Run Painter",
+      "request": "launch",
+      "mainClass": "hust.soict.hedspi.javafx.Painter",
+      "vmArgs": "--module-path \"C:\\javafx-sdk-21\\lib\" --add-modules javafx.controls,javafx.fxml"
+    }
+  ]
+}

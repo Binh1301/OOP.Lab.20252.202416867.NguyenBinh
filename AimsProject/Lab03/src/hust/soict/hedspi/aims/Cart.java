@@ -1,12 +1,11 @@
 package hust.soict.hedspi.aims;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import hust.soict.hedspi.aims.media.Media;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Cart {
-    private final List<Media> itemsOrdered = new ArrayList<>();
+    private final ObservableList<Media> itemsOrdered = FXCollections.observableArrayList();
 
     public void addMedia(Media media) {
         if (media == null) {
@@ -75,5 +74,9 @@ public class Cart {
             return;
         }
         System.out.println("No media found with title: " + title);
+    }
+
+    public ObservableList<Media> getItemsOrdered() {
+        return itemsOrdered;
     }
 }
