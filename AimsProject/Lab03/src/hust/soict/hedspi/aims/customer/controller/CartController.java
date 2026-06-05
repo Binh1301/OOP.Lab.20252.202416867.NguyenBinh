@@ -3,6 +3,7 @@ package hust.soict.hedspi.aims.customer.controller;
 import java.io.IOException;
 
 import hust.soict.hedspi.aims.Cart;
+import hust.soict.hedspi.aims.exception.PlayerException;
 import hust.soict.hedspi.aims.media.Media;
 import hust.soict.hedspi.aims.media.Playable;
 import hust.soict.hedspi.aims.store.Store;
@@ -12,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -135,7 +137,13 @@ public class CartController {
     private void btnPlayPressed(ActionEvent e) {
         Media selected = tblMedia.getSelectionModel().getSelectedItem();
         if (selected instanceof Playable) {
-            ((Playable) selected).play();
+            try {
+                ((Playable) selected).play();
+            } catch (PlayerException ex) {
+                System.err.println(ex.getMessage());
+                ex.printStackTrace();
+                showError(ex.getMessage());
+            }
         }
     }
 
@@ -153,5 +161,13 @@ public class CartController {
         tblMedia.getSelectionModel().clearSelection();
         updateButtonBar(null);
         updateTotalCost();
+    }
+
+    private void showError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Player Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

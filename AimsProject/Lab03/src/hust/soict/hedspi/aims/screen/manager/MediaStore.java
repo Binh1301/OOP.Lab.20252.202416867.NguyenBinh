@@ -14,6 +14,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import hust.soict.hedspi.aims.exception.PlayerException;
 import hust.soict.hedspi.aims.media.Disc;
 import hust.soict.hedspi.aims.media.Media;
 import hust.soict.hedspi.aims.media.Playable;
@@ -69,8 +70,23 @@ public class MediaStore extends JPanel {
     private class PlayButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            ((Playable) media).play();
-            showPlayDialog();
+            try {
+                ((Playable) media).play();
+                showPlayDialog();
+            } catch (PlayerException ex) {
+                System.err.println(ex.getMessage());
+                ex.printStackTrace();
+                showErrorDialog(ex.getMessage());
+            }
         }
+    }
+
+    private void showErrorDialog(String message) {
+        JDialog dialog = new JDialog();
+        dialog.setTitle("Player Error");
+        dialog.add(new JLabel("<html>" + message + "</html>"));
+        dialog.pack();
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
     }
 }
